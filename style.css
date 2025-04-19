@@ -149,8 +149,24 @@ ul {
 }
 
 .logo {
-    height: 32px; /* Adjust size */
+    height: 40px;
     width: auto;
+}
+
+.light-logo {
+    display: block;
+}
+
+.dark-logo {
+    display: none;
+}
+
+[data-theme="dark"] .light-logo {
+    display: none;
+}
+
+[data-theme="dark"] .dark-logo {
+    display: block;
 }
 
 .brand-name {
@@ -267,10 +283,11 @@ main {
     flex: 3; /* 60% */
 }
 .page-1-right {
-    flex: 2; /* 40% */
+    flex: 2;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--gem-spacing-xl);
 }
 
 .intro-list {
@@ -287,20 +304,48 @@ main {
     font-size: 1.5em; /* Make emojis slightly larger */
 }
 
+.svg-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
 .svg-placeholder {
     width: 100%;
-    aspect-ratio: 1 / 1; /* Make it square-ish */
+    max-width: 600px;
+    aspect-ratio: 16 / 9;
     background-color: var(--gem-sys-color--surface-container);
     border-radius: var(--gem-shape-l);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
     padding: var(--gem-spacing-xl);
-    color: var(--gem-sys-color--outline);
-    border: 1px dashed var(--gem-sys-color--outline);
+    overflow: hidden;
+    position: relative;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
 }
+
+.feature-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.feature-svg:hover {
+    transform: scale(1.05) translateZ(0);
+}
+
 .placeholder-icon {
     font-size: 4rem;
     margin-top: var(--gem-spacing-m);
@@ -677,7 +722,7 @@ main {
         width: 100%;
     }
     .page-1-right {
-        margin-top: var(--gem-spacing-xl);
+        padding: var(--gem-spacing-l);
     }
     .intro-list {
        padding-left: 0;
@@ -737,5 +782,19 @@ main {
     }
     .contact-button {
         width: 90%; /* Make button wider */
+    }
+
+    .svg-container {
+        padding: var(--gem-spacing-m);
+    }
+    
+    .svg-placeholder {
+        max-width: 100%;
+        aspect-ratio: 4 / 3;
+        padding: var(--gem-spacing-l);
+    }
+    
+    .feature-svg {
+        transform: none !important;
     }
 }
