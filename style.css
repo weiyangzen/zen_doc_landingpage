@@ -1,0 +1,741 @@
+/* --- Base & Reset --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+    /* Apple-like scroll snapping on main axis */
+    scroll-snap-type: y mandatory;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Techy feel font */
+    background-color: var(--gem-sys-color--surface);
+    color: var(--gem-sys-color--on-surface);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding-top: 60px; /* Space for fixed header */
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: var(--gem-sys-color--primary);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- Color System (CSS Variables) --- */
+:root {
+    --gem-sys-color--primary: #0b57d0; /* Blue */
+    --gem-sys-color--surface: #fff; /* White */
+    --gem-sys-color--on-surface: #1f1f1f; /* Dark Gray */
+    --gem-sys-color--outline: #747775; /* Medium Gray */
+    --gem-sys-color--surface-container: #f0f4f9; /* Light Blue-Gray */
+    --gem-sys-color--primary-container: #d3e3fd; /* Lighter blue for filled cards */
+    --gem-sys-color--on-primary-container: #001b3e;
+    --gem-sys-color--primary-rgb: 11, 87, 208; /* For RGBA overlays */
+    --header-height: 60px; /* Variable for header height */
+}
+
+[data-theme="dark"] {
+    --gem-sys-color--primary: #a8c7fa; /* Light Blue */
+    --gem-sys-color--surface: #1b1c1d; /* Dark Gray */
+    --gem-sys-color--on-surface: #e3e3e3; /* Light Gray */
+    --gem-sys-color--outline: #9a9b9c; /* Light Gray */
+    --gem-sys-color--surface-container: #282a2c; /* Darker Gray */
+    --gem-sys-color--primary-container: #004787; /* Darker blue for filled cards */
+    --gem-sys-color--on-primary-container: #dce3ff;
+    --gem-sys-color--primary-rgb: 168, 199, 250; /* For RGBA overlays */
+}
+
+/* --- Typography System --- */
+.text-display-large { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; line-height: 1.2; }
+.text-title-large   { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 600; line-height: 1.3; }
+.text-body-xlarge { font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 400; line-height: 1.5; }
+.text-body-large  { font-size: clamp(1rem, 2.2vw, 1.25rem); font-weight: 400; line-height: 1.6; }
+.text-body-medium { font-size: clamp(0.9rem, 2vw, 1rem); font-weight: 400; line-height: 1.6; }
+.text-body-small  { font-size: clamp(0.8rem, 1.8vw, 0.875rem); font-weight: 400; line-height: 1.6; }
+
+.text-primary { color: var(--gem-sys-color--primary); }
+.text-center { text-align: center; }
+.highlight-underline {
+    text-decoration: underline;
+    text-decoration-color: var(--gem-sys-color--primary);
+    text-decoration-thickness: 2px; /* Adjust thickness as needed */
+    text-underline-offset: 0.2em; /* Adjust offset */
+}
+
+.subtle-link {
+    font-size: var(--gem-typography--body-medium);
+    color: var(--gem-sys-color--outline);
+    margin-bottom: 12px;
+    display: inline-block;
+}
+.subtle-link:hover {
+    color: var(--gem-sys-color--primary);
+    opacity: 1;
+}
+
+
+/* --- Spacing & Shape --- */
+:root {
+    --gem-spacing-xs: 4px;
+    --gem-spacing-s: 8px;
+    --gem-spacing-m: 12px;
+    --gem-spacing-l: 16px;
+    --gem-spacing-xl: 20px;
+    --gem-spacing-2xl: 24px;
+    --gem-spacing-3xl: 28px;
+
+    --gem-shape-none: 0px;
+    --gem-shape-xs: 4px;
+    --gem-shape-s: 8px;
+    --gem-shape-m: 12px;
+    --gem-shape-l: 16px;
+    --gem-shape-xl: 28px;
+    --gem-shape-round: 9999px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--gem-spacing-l);
+}
+
+/* --- Header --- */
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--gem-sys-color--surface);
+    border-bottom: 1px solid var(--gem-sys-color--outline);
+    z-index: 1000;
+    transition: background-color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+#main-header nav.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 var(--gem-spacing-l); /* Consistent padding */
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: var(--gem-spacing-l); /* Space between items */
+}
+
+.logo {
+    height: 32px; /* Adjust size */
+    width: auto;
+}
+
+.brand-name {
+    font-weight: 700;
+    font-size: 1.5rem; /* text-title-large ish */
+    color: var(--gem-sys-color--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: var(--gem-spacing-xl);
+}
+
+.nav-links a {
+    color: var(--gem-sys-color--on-surface);
+    font-weight: 600;
+    padding: var(--gem-spacing-s) 0;
+    position: relative;
+}
+.nav-links a::after { /* Underline hover effect */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--gem-sys-color--primary);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover::after {
+    width: 100%;
+}
+.nav-links a:hover {
+    opacity: 1; /* Override default link hover for this effect */
+    color: var(--gem-sys-color--primary);
+}
+
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--gem-spacing-s);
+}
+
+
+#menu-toggle {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    color: var(--gem-sys-color--on-surface);
+    cursor: pointer;
+    padding: var(--gem-spacing-s);
+}
+#menu-toggle .material-symbols-outlined {
+    font-size: 28px;
+}
+
+
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--gem-spacing-xs);
+    color: var(--gem-sys-color--on-surface);
+    display: flex; /* Align icons */
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--gem-shape-round);
+    transition: background-color 0.2s ease;
+}
+#theme-toggle:hover {
+    background-color: rgba(var(--gem-sys-color--primary-rgb), 0.08);
+}
+
+#theme-toggle .material-symbols-outlined {
+    font-size: 24px;
+}
+
+/* Show correct icon based on theme */
+[data-theme="light"] .dark-icon { display: none; }
+[data-theme="dark"] .light-icon { display: none; }
+
+
+/* --- Main Content & Pages --- */
+main {
+    width: 100%;
+}
+
+.page-section {
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(var(--header-height) + var(--gem-spacing-3xl)) var(--gem-spacing-l) var(--gem-spacing-3xl); /* Top padding includes header */
+    border-bottom: 1px solid var(--gem-sys-color--outline); /* Separator */
+    scroll-snap-align: start; /* Snap alignment */
+    scroll-margin-top: var(--header-height); /* Offset snap point by header height */
+    overflow: hidden; /* Prevent content overflow issues */
+}
+.page-section:last-child {
+    border-bottom: none;
+}
+
+/* --- Page 1: Intro --- */
+.page-1-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gem-spacing-3xl);
+    width: 100%;
+}
+
+.page-1-left {
+    flex: 3; /* 60% */
+}
+.page-1-right {
+    flex: 2; /* 40% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-list {
+    margin-top: var(--gem-spacing-xl);
+    padding-left: var(--gem-spacing-s); /* Indent list slightly */
+}
+.intro-list li {
+    margin-bottom: var(--gem-spacing-m);
+    display: flex;
+    align-items: center;
+    gap: var(--gem-spacing-s);
+}
+.emoji {
+    font-size: 1.5em; /* Make emojis slightly larger */
+}
+
+.svg-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Make it square-ish */
+    background-color: var(--gem-sys-color--surface-container);
+    border-radius: var(--gem-shape-l);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--gem-spacing-xl);
+    color: var(--gem-sys-color--outline);
+    border: 1px dashed var(--gem-sys-color--outline);
+}
+.placeholder-icon {
+    font-size: 4rem;
+    margin-top: var(--gem-spacing-m);
+}
+
+/* --- Page 2: Comparison --- */
+.page-2-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gem-spacing-2xl);
+    width: 100%;
+    align-items: center; /* Center content vertically */
+}
+
+.table-container {
+    width: 100%;
+    max-width: 900px; /* Limit table width */
+    overflow-x: auto; /* Allow horizontal scroll on small screens */
+    background-color: var(--gem-sys-color--surface-container);
+    border-radius: var(--gem-shape-l);
+    padding: var(--gem-spacing-l);
+    border: 1px solid var(--gem-sys-color--outline);
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse; /* Clean borders */
+    text-align: left;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: var(--gem-spacing-m) var(--gem-spacing-l);
+    border-bottom: 1px solid var(--gem-sys-color--outline);
+    vertical-align: middle;
+}
+.comparison-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table th {
+    font-weight: 600;
+    background-color: rgba(var(--gem-sys-color--primary-rgb), 0.05); /* Subtle header background */
+}
+
+.comparison-table .zendoc-col {
+    font-weight: 600;
+    color: var(--gem-sys-color--primary);
+}
+
+/* --- Page 3: Stats --- */
+.page-3-container {
+     display: flex;
+    flex-direction: column;
+    gap: var(--gem-spacing-3xl);
+    width: 100%;
+    align-items: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: var(--gem-spacing-xl);
+    width: 100%;
+    max-width: 1000px; /* Limit width */
+}
+
+.card { /* Base card style */
+    padding: var(--gem-spacing-xl);
+    border-radius: var(--gem-shape-l); /* Medium radius */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden; /* Clip content if needed */
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.card.filled {
+    background-color: var(--gem-sys-color--primary-container);
+    color: var(--gem-sys-color--on-primary-container);
+    border: none;
+}
+.card.outline {
+    background-color: var(--gem-sys-color--surface);
+    color: var(--gem-sys-color--on-surface);
+    border: 1px solid var(--gem-sys-color--outline);
+}
+[data-theme="dark"] .card.outline {
+     background-color: var(--gem-sys-color--surface-container); /* Slightly different bg for outline in dark */
+}
+
+.stats-card {
+    aspect-ratio: 1.62 / 1; /* Golden ratio */
+    display: flex;
+    flex-direction: row; /* Side by side */
+    align-items: center; /* Vertically center content */
+    gap: var(--gem-spacing-l);
+}
+
+.stats-card .stat-main {
+    flex-basis: 45%; /* Adjust basis for left part */
+    text-align: left;
+}
+.stats-card .stat-details {
+     flex-basis: 55%; /* Adjust basis for right part */
+     text-align: left;
+}
+
+.stat-value {
+    font-size: clamp(2rem, 5vw, 3.5rem); /* Responsive large value */
+    font-weight: 700;
+    line-height: 1;
+    color: var(--gem-sys-color--primary);
+    display: inline-block; /* Needed for underline */
+}
+.card.filled .stat-value {
+     color: var(--gem-sys-color--primary); /* Keep primary color even in filled */
+}
+.card.filled .highlight-underline {
+    text-decoration-color: var(--gem-sys-color--primary); /* Ensure underline is primary */
+}
+
+.stat-desc {
+    margin-top: var(--gem-spacing-s);
+    font-weight: 600;
+}
+.stat-details p {
+    margin-bottom: var(--gem-spacing-xs);
+}
+.stat-details p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* --- Page 4: Testimonials --- */
+.page-4-container {
+    width: 100%; /* Take full width for carousel overflow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gem-spacing-3xl);
+}
+.page-4-container h1 {
+    padding: 0 var(--gem-spacing-l); /* Add padding to title if needed */
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden; /* Hide the overflowing content */
+    position: relative; /* For potential gradient overlays */
+    /* Adjust mask: make opaque area slightly wider */
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.carousel-container:hover .carousel-wrapper {
+    animation-play-state: paused; /* Pause on hover */
+}
+
+.carousel-wrapper {
+    display: flex;
+    width: fit-content; /* Let width be determined by content */
+    animation: scroll 40s linear infinite; /* Adjust duration for speed */
+}
+
+.testimonial-card {
+    /* Adjust width: Use clamp for flexibility */
+    width: clamp(350px, 35vw, 480px); /* Min width, preferred viewport width, max width */
+    max-width: 90vw; /* Ensure it doesn't get too wide on narrow viewports either */
+    flex-shrink: 0; /* Prevent cards from shrinking */
+    margin-right: var(--gem-spacing-xl); /* Gap between cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push author/title down */
+    min-height: 280px; /* Ensure minimum height for content */
+    /* Increase padding slightly for more breathing room */
+    padding: var(--gem-spacing-xl) var(--gem-spacing-l);
+}
+.testimonial-card blockquote {
+    font-style: italic;
+    margin-bottom: var(--gem-spacing-l);
+    text-align: left;
+    /* Ensure text wraps */
+    white-space: normal;
+    word-wrap: break-word;
+}
+.testimonial-card .author {
+    font-weight: 700;
+    text-align: right;
+    margin-top: auto; /* Push to bottom */
+}
+.testimonial-card .title {
+    text-align: right;
+    color: var(--gem-sys-color--outline);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Scroll by the width of the original items (half the total wrapper width) */
+        transform: translateX(-50%);
+    }
+}
+
+
+/* --- Page 5: Contact --- */
+.page-5-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gem-spacing-2xl);
+    text-align: center;
+}
+
+.contact-options {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: center;
+    gap: var(--gem-spacing-l);
+    margin-bottom: var(--gem-spacing-l);
+}
+
+.contact-option {
+    padding: var(--gem-spacing-m) var(--gem-spacing-l);
+    font-weight: 600;
+    cursor: pointer; /* Indicate interactivity */
+    display: flex;
+    align-items: center;
+    gap: var(--gem-spacing-s);
+    /* Uses card styles (outline by default) */
+}
+.contact-option .emoji {
+    font-size: 1.2em;
+}
+
+.button { /* Base Button Style */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gem-spacing-s);
+    padding: var(--gem-spacing-m) var(--gem-spacing-xl);
+    border-radius: var(--gem-shape-round); /* Fully rounded */
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background-color: var(--gem-sys-color--primary);
+    color: var(--gem-sys-color--surface); /* Text color on primary bg */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden; /* For state layer */
+}
+
+.button::before { /* State layer */
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--gem-sys-color--on-surface); /* Use text color for overlay */
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none; /* Don't interfere with clicks */
+}
+
+.button:hover::before {
+    opacity: 0.08; /* Hover state */
+}
+.button:focus-visible { /* Focus state */
+    outline: 2px solid var(--gem-sys-color--primary);
+    outline-offset: 2px;
+}
+.button:focus-visible::before {
+    opacity: 0.12;
+}
+.button:active::before {
+    opacity: 0.10; /* Pressed state */
+}
+
+[data-theme="dark"] .button {
+     color: var(--gem-sys-color--surface); /* Ensure contrast */
+}
+
+
+.contact-button {
+    min-width: 250px; /* Make email button wider */
+}
+.contact-button .material-symbols-outlined {
+    font-size: 1.2em;
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--gem-sys-color--primary-rgb), 0.5); /* Use primary color with transparency */
+    border-radius: var(--gem-shape-round);
+    border: 2px solid transparent; /* Creates padding around thumb */
+    background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(var(--gem-sys-color--primary-rgb), 0.7);
+}
+
+/* --- Responsiveness --- */
+@media (max-width: 768px) {
+    body {
+        padding-top: 50px; /* Slightly smaller header */
+        /* Consider removing scroll-snap on mobile if problematic */
+        /* scroll-snap-type: none; */
+    }
+     :root {
+        --header-height: 50px;
+    }
+
+    .text-display-large { font-size: clamp(2rem, 8vw, 3rem); }
+    .text-title-large   { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+
+    #main-header nav.container {
+        padding: 0 var(--gem-spacing-m);
+    }
+
+    .nav-links {
+        display: none; /* Hide desktop links */
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background-color: var(--gem-sys-color--surface);
+        flex-direction: column;
+        padding: var(--gem-spacing-l) 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-top: 1px solid var(--gem-sys-color--outline);
+    }
+     .nav-links.active {
+        display: flex; /* Show when active */
+    }
+
+    .nav-links a {
+        padding: var(--gem-spacing-m) var(--gem-spacing-xl);
+        width: 100%;
+        text-align: center;
+    }
+     .nav-links a::after {
+        display: none; /* Remove underline hover on mobile */
+    }
+     .nav-links a:hover {
+        background-color: var(--gem-sys-color--surface-container);
+        color: var(--gem-sys-color--primary);
+    }
+
+
+    #menu-toggle {
+        display: block; /* Show hamburger */
+    }
+
+    .page-section {
+         padding: calc(var(--header-height) + var(--gem-spacing-xl)) var(--gem-spacing-m) var(--gem-spacing-xl);
+         min-height: auto; /* Allow sections to shrink */
+         /* Adjust snapping behavior if needed */
+    }
+
+    /* Page 1 Mobile */
+    .page-1-container {
+        flex-direction: column; /* Stack vertically */
+        text-align: center;
+    }
+    .page-1-left, .page-1-right {
+        flex: 1; /* Take full width */
+        width: 100%;
+    }
+    .page-1-right {
+        margin-top: var(--gem-spacing-xl);
+    }
+    .intro-list {
+       padding-left: 0;
+       align-items: center; /* Center list items */
+       justify-content: center;
+    }
+     .intro-list li {
+        justify-content: center;
+    }
+
+
+    /* Page 2 Mobile */
+    .page-2-container h2 {
+         margin-bottom: var(--gem-spacing-m);
+    }
+    .table-container {
+        width: 100%; /* Use full width */
+        border-radius: var(--gem-shape-m);
+    }
+
+    /* Page 3 Mobile */
+    .stats-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically */
+        gap: var(--gem-spacing-l);
+    }
+    /* Remove aspect ratio from stats card on mobile */
+    .stats-card {
+        aspect-ratio: auto;
+        flex-direction: column; /* Stack content vertically */
+        text-align: center;
+        padding: var(--gem-spacing-l);
+    }
+    .stats-card .stat-main, .stats-card .stat-details {
+        flex-basis: auto; /* Reset basis */
+        text-align: center;
+    }
+    .stat-value {
+         font-size: clamp(1.8rem, 7vw, 2.8rem);
+    }
+
+    /* Page 4 Mobile */
+     .testimonial-card {
+        /* Adjust mobile width slightly, ensure max width is reasonable */
+        width: 85vw;
+        max-width: 380px; /* Cap width on mobile */
+        min-height: 250px; /* Adjust min height if needed */
+        padding: var(--gem-spacing-l); /* Slightly less padding on mobile */
+    }
+    /* No change needed for keyframes scroll, -50% still works */
+
+    /* Page 5 Mobile */
+    .contact-options {
+        gap: var(--gem-spacing-m);
+    }
+    .contact-option {
+        padding: var(--gem-spacing-s) var(--gem-spacing-m);
+    }
+    .contact-button {
+        width: 90%; /* Make button wider */
+    }
+}
